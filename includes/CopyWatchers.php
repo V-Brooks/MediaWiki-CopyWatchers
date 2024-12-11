@@ -43,7 +43,7 @@ class CopyWatchers extends ParserFunctionHelper {
 			$titleObj = self::getNamespaceAndTitle( trim($page) );
 
 			if ( $titleObj->isRedirect() ) {
-				$redirectArticle = new \Article( $titleObj );
+				$redirectArticle = new \WikiPage( $titleObj );
 
 				$titleObj = $redirectArticle->getRedirectTarget();
 				$output .= " (redirects to " . $titleObj->getFullText() . ")";
