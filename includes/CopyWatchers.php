@@ -9,6 +9,8 @@
 
 namespace CopyWatchers;
 use ParserFunctionHelper\ParserFunctionHelper;
+use MediaWiki\Watchlist\WatchlistManager;
+use MediaWiki\MediaWikiServices;
 
 class CopyWatchers extends ParserFunctionHelper {
 
@@ -70,9 +72,10 @@ class CopyWatchers extends ParserFunctionHelper {
 
 		// add list of usernames as watchers to this Title
 		foreach ($newWatchers as $userID => $dummy) {
-			$u = \User::newFromId($userID);
-			$u->addWatch( $parser->getTitle() );
-		}
+                        $u = \User::newFromId($userID);
+                        $watchlistManager = MediaWikiServices::getInstance()->getWatchlistManager();
+                        $watchlistManager->addWatch($u, $parser->getTitle());
+                }
 
 		if ( $showOutput )
 			return $output;
